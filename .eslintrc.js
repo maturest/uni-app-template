@@ -5,12 +5,17 @@ module.exports = {
     browser: true,
     es2021: true
   },
-  extends: ['eslint:recommended', 'plugin:vue/vue3-recommended', '@vue/prettier'],
   parserOptions: {
     ecmaVersion: 2021,
     sourceType: 'module'
   },
   rules: {
+    // 禁用 ESLint 的缩进规则，让 Prettier 完全控制缩进
+    indent: 'off',
+
+    // 禁用 Vue 相关的缩进规则
+    'vue/html-indent': 'off',
+    'vue/script-indent': 'off',
     // Vue 规则
     'vue/multi-word-component-names': 'off',
     'vue/require-default-prop': 'off',
@@ -28,7 +33,9 @@ module.exports = {
         semi: false,
         singleQuote: true,
         trailingComma: 'none',
-        printWidth: 100
+        printWidth: 100,
+        tabWidth: 2, // 明确指定 Prettier 使用 2 空格
+        useTabs: false
       }
     ]
   },
@@ -40,5 +47,11 @@ module.exports = {
     getCurrentPages: true,
     Page: true,
     Component: true
-  }
+  },
+  extends: [
+    'eslint:recommended',
+    'plugin:vue/vue3-recommended',
+    '@vue/prettier',
+    'plugin:prettier/recommended'
+  ]
 }
