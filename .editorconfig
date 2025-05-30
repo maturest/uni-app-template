@@ -1,0 +1,61 @@
+# https://editorconfig.org
+root = true
+
+# 通用设置
+[*]
+charset = utf-8
+indent_style = space
+indent_size = 2
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+max_line_length = 100
+
+# 特定文件类型设置
+[*.{js,jsx,ts,tsx}]
+indent_size = 2
+
+[*.vue]
+indent_size = 2
+
+# Vue 模板中的不同部分
+[*.vue:script]
+indent_size = 2
+
+[*.vue:style]
+indent_size = 2
+
+[*.html]
+indent_size = 2
+
+[*.{css,scss,less}]
+indent_size = 2
+
+[*.json]
+indent_size = 2
+
+[*.md]
+trim_trailing_whitespace = false
+max_line_length = off
+
+[*.yml]
+indent_size = 2
+
+# 构建配置文件
+[.babelrc]
+indent_size = 2
+
+[.eslintrc]
+indent_size = 2
+
+[.prettierrc]
+indent_size = 2
+
+# Git 忽略文件
+[.gitignore]
+indent_size = 2
+
+# Makefile 使用 tab 缩进
+[Makefile]
+indent_style = tab
+indent_size = 4
