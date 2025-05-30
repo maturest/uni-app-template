@@ -57,6 +57,7 @@
     "@dcloudio/uni-mp-weixin": "3.0.0-4060420250429001",
     "@dcloudio/uni-mp-xhs": "3.0.0-4060420250429001",
     "@dcloudio/uni-quickapp-webview": "3.0.0-4060420250429001",
+    "pinia": "^2.0.36",
     "vue": "^3.4.21",
     "vue-i18n": "^9.1.9"
   },
@@ -77,5 +78,8 @@
     "prettier": "^3.2.5",
     "tailwindcss": "^3.4.1",
     "vite": "5.2.8"
+  },
+  "resolutions": {
+    "@vue/composition-api": "disabled"
   }
 }
