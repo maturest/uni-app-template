@@ -36,5 +36,13 @@
 <style>
   @import 'colorui/main.css';
   @import 'colorui/icon.css';
-  /*每个页面公共css */
+
+  /* 引入 Tailwind */
+  @import './styles/tailwind.output.css';
+
+  /* 全局样式 */
+  page {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
+      'Open Sans', 'Helvetica Neue', sans-serif;
+  }
 </style>

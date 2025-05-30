@@ -1,0 +1,30 @@
+/* src/styles/tailwind.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 修复小程序兼容问题 */
+page {
+  @apply bg-gray-100;
+}
+
+button,
+view,
+text,
+input {
+  @apply box-border;
+}
+
+/* H5 适配 */
+@media (min-width: 768px) {
+  html {
+    font-size: 50px; /* 调整 H5 根字体大小 */
+  }
+}
+
+/* 安全区域适配 */
+@supports (bottom: env(safe-area-inset-bottom)) {
+  .safe-area-inset-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}

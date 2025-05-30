@@ -36,7 +36,9 @@
     "build:quickapp-webview-union": "uni build -p quickapp-webview-union",
     "lint": "eslint --ext .js,.vue \"src/**/*.{js,vue}\"",
     "lint:fix": "eslint --fix --ext .js,.vue \"src/**/*.{js,vue}\"",
-    "format": "prettier --write \"src/**/*.{js,vue,json}\""
+    "format": "prettier --write \"src/**/*.{js,vue,json}\"",
+    "tailwind:build": "tailwindcss -i ./src/styles/tailwind.css -o ./src/styles/tailwind.output.css",
+    "tailwind:watch": "tailwindcss -i ./src/styles/tailwind.css -o ./src/styles/tailwind.output.css --watch"
   },
   "dependencies": {
     "@dcloudio/uni-app": "3.0.0-4060420250429001",
@@ -66,10 +68,14 @@
     "@dcloudio/vite-plugin-uni": "3.0.0-4060420250429001",
     "@vue/eslint-config-prettier": "^7.1.0",
     "@vue/runtime-core": "^3.4.21",
+    "autoprefixer": "^10.4.19",
     "eslint": "^8.57.0",
     "eslint-plugin-prettier": "^5.1.3",
     "eslint-plugin-vue": "^9.25.0",
+    "postcss": "^8.4.38",
+    "postcss-rem-to-responsive-pixel": "^5.0.0",
     "prettier": "^3.2.5",
+    "tailwindcss": "^3.4.1",
     "vite": "5.2.8"
   }
 }
