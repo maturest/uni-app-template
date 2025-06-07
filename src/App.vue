@@ -38,7 +38,7 @@
   @import 'colorui/icon.css';
 
   /* 引入 Tailwind */
-  @import './styles/tailwind.output.css';
+  @import './styles/tailwind.css';
 
   /* 全局样式 */
   page {
