@@ -8,11 +8,6 @@ class RestClient {
   }
 
   getBaseUrlByEnv() {
-    // 优先使用.env中配置的VUE_APP_BASE_URL
-    if (process.env.VUE_APP_BASE_URL) {
-      return process.env.VUE_APP_BASE_URL
-    }
-
     // 默认回退逻辑
     const env = process.env.NODE_ENV || 'development'
     switch (env) {
