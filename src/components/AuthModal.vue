@@ -1,22 +1,23 @@
 <template>
-  <view
-    v-if="visible"
-    class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
-  >
-    <view class="bg-white rounded-lg w-4/5 overflow-hidden">
+  <view v-if="visible" class="cu-modal bottom-modal" @tap="close">
+    <view class="cu-dialog" @tap.stop="">
       <!-- 模态框头部 -->
-      <view class="bg-gradual-blue text-white p-4 flex justify-between items-center">
-        <text class="text-lg font-bold">授权提示</text>
-        <text class="cuIcon-close text-xl" @click="close"></text>
+      <view class="cu-bar bg-gradual-blue justify-end">
+        <view class="content text-white">授权提示</view>
+        <view class="action" @tap="close">
+          <text class="cuIcon-close text-white"></text>
+        </view>
       </view>
 
       <!-- 模态框内容 -->
-      <view class="p-6">
-        <text class="text-gray-700 mb-6 block">需要获取您的头像和昵称信息用于生成个性化报告</text>
+      <view class="padding-xl">
+        <text class="text-gray text-df block margin-bottom-xl">
+          需要获取您的头像和昵称信息用于生成个性化报告
+        </text>
 
         <!-- 操作按钮 -->
-        <view class="flex justify-between mt-4">
-          <button class="cu-btn bg-gray lg round" @click="close">拒绝</button>
+        <view class="flex justify-between">
+          <button class="cu-btn bg-gray lg round margin-right" @click="close">拒绝</button>
           <button class="cu-btn bg-green lg round" @click="confirm">同意授权</button>
         </view>
       </view>
@@ -44,10 +45,9 @@
 </script>
 
 <style>
-  /* 使用ColorUI和Tailwind的混合样式 */
-  .cu-btn.lg {
-    padding: 0 30px;
-    height: 80rpx;
-    line-height: 80rpx;
+  .cu-modal.bottom-modal {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
   }
 </style>
