@@ -1,9 +1,12 @@
 import { createSSRApp } from 'vue'
 import App from './App.vue'
 import pinia from '@/store' // 导入创建的 pinia 实例
+import restClient from './utils/request.js'
 
 export function createApp() {
   const app = createSSRApp(App)
+  // 挂载到全局
+  app.config.globalProperties.$http = restClient
 
   // 挂载 Pinia
   app.use(pinia)
