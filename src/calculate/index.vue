@@ -12,23 +12,44 @@
     </view>
 
     <!-- 提交按钮 -->
-    <button class="cu-btn bg-green lg round shadow" @click="getUserProfile">
+    <button class="cu-btn bg-green lg round shadow" @click="generateReport">
       <text class="text-white text-lg">立即生成</text>
     </button>
 
-    <AuthModal :visible="showModal" @close="showModal = false" @confirm="handleAuthConfirm" />
+    <view class="cu-modal bottom-modal" :class="modalName == 'authModal' ? 'show' : ''">
+      <view class="cu-dialog">
+        <!-- 模态框头部 -->
+        <view class="cu-bar bg-gradual-blue justify-end">
+          <view class="content text-white">授权提示</view>
+          <view class="action" @tap="closeAuthModal">
+            <text class="cuIcon-close text-white"></text>
+          </view>
+        </view>
+
+        <!-- 模态框内容 -->
+        <view class="padding-xl">
+          <text class="text-gray text-df block margin-bottom-xl">
+            需要获取您的头像和昵称信息用于生成个性化报告
+          </text>
+
+          <!-- 操作按钮 -->
+          <view class="flex justify-between">
+            <button class="cu-btn bg-gray lg round margin-right" @click="closeAuthModal">
+              拒绝
+            </button>
+            <button class="cu-btn bg-green lg round" @click="confirmAuthModal">同意授权</button>
+          </view>
+        </view>
+      </view>
+    </view>
   </view>
 </template>
 
 <script>
-  import AuthModal from '@/components/AuthModal.vue'
   export default {
-    components: {
-      AuthModal
-    },
     data() {
       return {
-        showModal: false,
+        modalName: '',
         phoneNumber: ''
       }
     },
@@ -38,21 +59,15 @@
       }
     },
     methods: {
+      generateReport() {},
+      closeAuthModal() {
+        this.modalName = ''
+      },
+      confirmAuthModal() {},
       getUserProfile() {
-        this.showModal = true
+        this.modalName = 'authModal'
       },
-      async handleAuthConfirm() {
-        this.showModal = false
-        // 这里添加授权确认后的逻辑
-        // ... existing getUserProfile code ...
-      },
-      submitPhone(userInfo) {
-        console.log('提交数据:', {
-          phone: this.phoneNumber,
-          nickName: userInfo.nickName,
-          avatarUrl: userInfo.avatarUrl
-        })
-      }
+      submitPhone() {}
     }
   }
 </script>

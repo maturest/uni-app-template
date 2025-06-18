@@ -1,3 +1,5 @@
+import { useAuthStore } from '@/stores/auth'
+
 class RestClient {
   constructor(headers = {}) {
     this.headers = {
@@ -16,27 +18,90 @@ class RestClient {
       case 'test':
         return 'https://customer.test'
       default:
-        return 'https://customer.dev'
+        return 'http://calculate.test/api/v1/'
     }
   }
 
   async request(method, url, data = {}, params = {}, needToken = false) {
+    const authStore = useAuthStore()
+    // 初始化认证状态
+    if (!authStore.accessToken) {
+      authStore.init()
+    }
+
+    // 需要令牌的处理
     if (needToken) {
-      const token = ''
-      this.headers.Authorization = `Bearer ${token}`
+      return this._requestWithToken(method, url, data, params, authStore)
+    }
+
+    // 不需要令牌的普通请求
+    return this._basicRequest(method, url, data, params)
+  }
+
+  async _requestWithToken(method, url, data, params, authStore) {
+    try {
+      // 第一次尝试请求
+      return await this._makeRequest(method, url, data, params, authStore.accessToken)
+    } catch (error) {
+      // 401错误尝试刷新令牌
+      if (error.status === 401 && authStore.refreshToken) {
+        try {
+          // 刷新令牌
+          const newAccessToken = await authStore.refreshToken()
+
+          // 使用新令牌重试请求
+          return await this._makeRequest(method, url, data, params, newAccessToken)
+        } catch (refreshError) {
+          // 刷新失败处理
+          if (refreshError.status === 401) {
+            authStore.clearTokens()
+            uni.showToast({ title: '登录已过期，请重新登录', icon: 'none' })
+            uni.reLaunch({ url: '/login/index' })
+          }
+          throw refreshError
+        }
+      }
+
+      // 其他错误直接抛出
+      throw error
+    }
+  }
+
+  async _makeRequest(method, url, data, params, token) {
+    const headers = {
+      ...this.headers,
+      Authorization: `Bearer ${token}`
     }
 
     return new Promise((resolve, reject) => {
-      const headers = {
-        ...this.headers
-      }
-
       uni.request({
         url: `${this.baseUrl}${url}`,
         method: method.toUpperCase(),
         data,
         params,
         header: headers,
+        success: res => {
+          if (res.statusCode >= 200 && res.statusCode < 300) {
+            resolve(res.data)
+          } else {
+            reject(this.handleError(res))
+          }
+        },
+        fail: err => {
+          reject(this.handleError(err))
+        }
+      })
+    })
+  }
+
+  async _basicRequest(method, url, data, params) {
+    return new Promise((resolve, reject) => {
+      uni.request({
+        url: `${this.baseUrl}${url}`,
+        method: method.toUpperCase(),
+        data,
+        params,
+        header: this.headers,
         success: res => {
           if (res.statusCode >= 200 && res.statusCode < 300) {
             resolve(res.data)
